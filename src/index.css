@@ -2,12 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* FB Video Saver - Professional Mobile App Design System */
 
 @layer base {
   :root {
+    /* Core Facebook-inspired brand colors */
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 
@@ -17,8 +16,10 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Facebook blue as primary */
+    --primary: 221 83% 53%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 221 83% 48%;
 
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
@@ -34,9 +35,22 @@ All colors MUST be HSL.
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --ring: 221 83% 53%;
 
-    --radius: 0.5rem;
+    /* Success color for downloads */
+    --success: 142 76% 36%;
+    --success-foreground: 355 7% 97%;
+
+    /* Warning for legal notices */
+    --warning: 38 92% 50%;
+    --warning-foreground: 48 96% 89%;
+
+    /* App-specific colors */
+    --app-gradient: linear-gradient(135deg, hsl(221 83% 53%), hsl(251 91% 65%));
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --shadow-primary: 0 10px 30px -10px hsl(221 83% 53% / 0.3);
+
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -56,33 +70,46 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
+    --background: 15 8% 8%;
     --foreground: 210 40% 98%;
 
-    --card: 222.2 84% 4.9%;
+    --card: 15 8% 12%;
     --card-foreground: 210 40% 98%;
 
-    --popover: 222.2 84% 4.9%;
+    --popover: 15 8% 12%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    /* Keep Facebook blue but adjusted for dark mode */
+    --primary: 221 83% 58%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 221 83% 53%;
 
-    --secondary: 217.2 32.6% 17.5%;
+    --secondary: 15 8% 18%;
     --secondary-foreground: 210 40% 98%;
 
-    --muted: 217.2 32.6% 17.5%;
+    --muted: 15 8% 18%;
     --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 217.2 32.6% 17.5%;
+    --accent: 15 8% 18%;
     --accent-foreground: 210 40% 98%;
 
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 62.8% 50.6%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --border: 15 8% 18%;
+    --input: 15 8% 18%;
+    --ring: 221 83% 58%;
+
+    /* Dark mode app colors */
+    --success: 142 76% 46%;
+    --success-foreground: 0 0% 100%;
+    
+    --warning: 38 92% 60%;
+    --warning-foreground: 15 8% 8%;
+    
+    --app-gradient: linear-gradient(135deg, hsl(221 83% 58%), hsl(251 91% 70%));
+    --glass-bg: rgba(0, 0, 0, 0.2);
+    --shadow-primary: 0 10px 30px -10px hsl(221 83% 58% / 0.4);
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -101,5 +128,79 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   }
+
+  /* Mobile-first responsive design */
+  .mobile-container {
+    @apply max-w-sm mx-auto min-h-screen bg-background;
+  }
+
+  /* Smooth animations */
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  .animate-pulse-soft {
+    animation: pulseSoft 2s ease-in-out infinite;
+  }
+
+  /* Glass morphism effect */
+  .glass {
+    backdrop-filter: blur(10px);
+    background: var(--glass-bg);
+    border: 1px solid hsl(var(--border) / 0.2);
+  }
+
+  /* Custom gradient background */
+  .gradient-bg {
+    background: var(--app-gradient);
+  }
+
+  /* Floating action button style */
+  .fab {
+    @apply rounded-full shadow-lg;
+    box-shadow: var(--shadow-primary);
+  }
+}
+
+@layer components {
+  /* Video card component */
+  .video-card {
+    @apply bg-card border border-border rounded-xl p-4 shadow-sm;
+    transition: all 0.3s ease;
+  }
+
+  .video-card:hover {
+    @apply shadow-md;
+    transform: translateY(-2px);
+  }
+
+  /* Download progress styles */
+  .progress-ring {
+    transform: rotate(-90deg);
+  }
+
+  .progress-ring circle {
+    transition: stroke-dashoffset 0.3s ease;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulseSoft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
 }
